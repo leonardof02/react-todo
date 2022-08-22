@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function TaskList( props ) {
     
-    const [ tasks, setTasks ] = useState([
+    const [ tasks, setTasks ] = useState( [
         {
             title: 'Test1',
             desc: 'Lorem Ipsum',
@@ -20,7 +20,7 @@ export default function TaskList( props ) {
             desc: 'Cagasteeeee',
             checked: false
         }
-    ])
+    ] );
 
     const addTask = ( title, desc ) => {
         const newTask = { title, desc, checked: false };
@@ -28,7 +28,9 @@ export default function TaskList( props ) {
     }
 
     const deleteTask = ( id ) => {
-        const newTaskList = tasks.splice(id, 0);
+        const newTaskList = [...tasks];
+        newTaskList.splice( id, 1);
+        console.log( newTaskList );
         setTasks( newTaskList );
     }
 
@@ -41,7 +43,7 @@ export default function TaskList( props ) {
 
     const toDos = tasks.map( ( task, index ) =>
     <Task key={ index } id={ index } title={ task.title }
-    desc={ task.desc } checked={ task.checked } onEdit= { updateTask }
+    desc={ task.desc } isChecked={ task.checked } onEdit= { updateTask }
     onDelete={ deleteTask }/> )
 
     return(

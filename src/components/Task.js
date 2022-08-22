@@ -5,16 +5,13 @@ import '../General.css'
 export default function Task( { id, title, desc, isChecked, onEdit, onDelete }) {
 
     // State
-    const [ currentId, setCurrentId ] = useState(id);
     const [ info, setInfo ] = useState({ title: title, desc: desc })
     const [ checked, setChecked ] = useState( isChecked );
     const [ editMode, setEditMode ] = useState( false );
 
     // EVENTS
     const handleChange = ( e ) => {
-        e.target.className === "task-title" ?
-        setInfo({ title: e.target.value, desc: info.desc })
-        : setInfo({ title: info.title, desc: e.target.value })
+        
     }
 
     const toggleEditMode = () => {
@@ -27,12 +24,11 @@ export default function Task( { id, title, desc, isChecked, onEdit, onDelete }) 
 
     const handleClick = ( e ) => {
         toggleEditMode();
-        onEdit( currentId );
+        onEdit( id );
     }
 
     const handleDelete = ( e ) => {
-        console.log( currentId );
-        onDelete( currentId );
+        onDelete( id );
     }
 
     // RENDER
@@ -40,8 +36,8 @@ export default function Task( { id, title, desc, isChecked, onEdit, onDelete }) 
         return(
             <div className="task edit-task" onChange={ handleChange }>
                 <input type="checkbox" onChange={ handleCheck } ></input>
-                <input type="text" value={ info.title } className="task-title"></input>
-                <input type="text" value={ info.desc } className="task-desc"></input>
+                <input type="text" placeholder={ info.title } name="title"></input>
+                <input type="text" placeholder={ info.desc  } name="desc" ></input>
                 <button className='btn btn-success' onClick={ handleClick }>
                     Accept
                 </button>
