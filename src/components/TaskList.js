@@ -1,57 +1,79 @@
-import Task from './Task'
-import TaskForm from './TaskForm';
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import ToDo from "./ToDo";
+import ToDoForm from "./ToDoForm";
 
-export default function TaskList( props ) {
+export default function TaskList() {
     
-    const [ tasks, setTasks ] = useState( [
-        {
-            title: 'Test1',
-            desc: 'Lorem Ipsum',
-            checked: false
-        },
-        {
-            title: 'Test2',
-            desc: 'Mierda',
-            checked: true
-        },
-        {
-            title: 'KKCKC',
-            desc: 'Cagasteeeee',
-            checked: false
+    const [ todolist, setList ] = useState({});
+
+    const addTodo = ( title, desc ) => {
+        const id = uuidv4();
+        const date = new Date();
+        const newTodo = {
+            [id]: {
+                id: id,
+                title: title,
+                desc: desc,
+                completed: false,
+                createdAt: date.toLocaleString()
+            }
         }
-    ] );
 
-    const addTask = ( title, desc ) => {
-        const newTask = { title, desc, checked: false };
-        setTasks( [ ...tasks, newTask ] );
+        setList( prevList => {
+            return { ...prevList, ...newTodo };
+        });
     }
 
-    const deleteTask = ( id ) => {
-        const newTaskList = [...tasks];
-        newTaskList.splice( id, 1);
-        console.log( newTaskList );
-        setTasks( newTaskList );
+    const removeTodo = ( id ) => {
+        const newTodoList = { ...todolist };
+        delete newTodoList[id];
+        setList( newTodoList );
     }
 
-    const updateTask = ( id, title, desc ) => {
-        const updateTasks = [...tasks];
-        updateTasks[ id ].title = title;
-        updateTasks[ id ].desc = desc;
-        setTasks([...updateTasks]);
+    const updateTodo = ( id, title, desc ) => {
+        const date = new Date();
+
+        const newTodo = {
+            [id]: {
+                id: id,
+                title: title,
+                desc: desc,
+                completed: false,
+                createdAt: date.toLocaleString()
+            }
+        }
+
+        setList( prevList => {
+            return { ...prevList, ...newTodo };
+        });
     }
 
-    const toDos = tasks.map( ( task, index ) =>
-    <Task key={ index } id={ index } title={ task.title }
-    desc={ task.desc } isChecked={ task.checked } onEdit= { updateTask }
-    onDelete={ deleteTask }/> )
+    const toggleCompleted = ( id ) => {
+        const newTodoList = { ...todolist };
+        newTodoList[id].completed = ! newTodoList[id].completed;
+        setList( newTodoList );
+    }
 
+    const listTodos = () => {
+        return Object.keys( todolist ).map( value => todolist[value] );
+    }
+    
     return(
         <>
-            <TaskForm onSubmit={ addTask }/>
-            <div className="task-list">
-                { toDos }
-            </div>
+            <ToDoForm onSubmit={ addTodo } />
+            { listTodos().map( todo =>
+            <ToDo
+                key={ todo.id }
+                id={ todo.id }
+                title={ todo.title }
+                desc={ todo.desc }
+                createdAt={ todo.createdAt }
+                completed={ todo.completed }
+                onChange={ toggleCompleted }
+                onClick={ removeTodo }
+                onUpdate={ updateTodo }
+            />) }
         </>
     )
 }
