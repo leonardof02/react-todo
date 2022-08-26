@@ -7,6 +7,9 @@ export default function ToDo( { id, title, desc, completed, createdAt, onChange,
     const [ isCompleted, toggleCompleted ] = useState(completed);
     const [ editMode, toggleEditMode ] = useState(false);
 
+    let todoType;
+    isCompleted ? todoType = "task task-completed" : todoType = "task";
+
     const handleChange = ( event ) => {
         toggleCompleted(!isCompleted);
         onChange( id );
@@ -34,15 +37,16 @@ export default function ToDo( { id, title, desc, completed, createdAt, onChange,
             />
         )
     }
+    
     else {
         return (
-            <div className="task">
-                <input type="checkbox" value={ completed } onChange={ handleChange }></input>
-                <h3>{ title }</h3>
-                <p>{ desc }</p>
-                <footer> createdAt: { createdAt } </footer>
-                <button onClick={ handleClick } id="delete">Delete</button>
-                <button onClick={ handleClick } id="edit">Edit</button>
+            <div className={todoType}>
+                <input className="check-todo" type="checkbox" value={ completed } onChange={ handleChange }></input>
+                <h3 className="todo-title">{ title }</h3>
+                <p className="todo-desc">{ desc }</p>
+                <footer> { createdAt } </footer>
+                <button className="btn btn-danger" onClick={ handleClick } id="delete">Delete</button>
+                <button  className="btn btn-primary" onClick={ handleClick } id="edit">Edit</button>
             </div>
         )
     }

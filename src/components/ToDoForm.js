@@ -1,6 +1,7 @@
 import { useState } from "react"
+import "./ToDoForm.css"
 
-export default function TaskForm({ onSubmit }) {
+export default function ToDoForm({ onSubmit }) {
 
     const [ data, setData ] = useState({
         title: "",
@@ -16,8 +17,13 @@ export default function TaskForm({ onSubmit }) {
 
     const handleSubmit = ( e ) => {
         e.preventDefault();
-        onSubmit( data.title, data.desc );
-        cleanInputs();
+        if( data.title !== "" && data.desc !== "" ) {
+            onSubmit( data.title, data.desc );
+            cleanInputs();
+        }
+        else {
+            console.log("Noooo!!!!!");
+        }
     }
 
     const handleChange = ( e ) => {
@@ -28,22 +34,23 @@ export default function TaskForm({ onSubmit }) {
     }
 
     return(
-        <form onSubmit={ handleSubmit }>
+        <form className="todo-form" onSubmit={ handleSubmit }>
+            <label for="title">Title:</label>
             <input
-                className="input-title"
+                className="input-text"
                 name="title"
                 value={ data.title }
                 onChange={handleChange}
             />
-            
+            <label for="desc">Description:</label>
             <input
-            className="input-description"
+            className="input-text"
             name="desc"
             value={ data.desc }
             onChange={handleChange}
             />
 
-            <button type="submit" name="Add Task">Add task</button>
+            <button className="btn btn-success" type="submit" name="Add Task">Add task</button>
         </form>
     )
 }

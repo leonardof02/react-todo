@@ -1,0 +1,8 @@
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    align-items: center;
+}

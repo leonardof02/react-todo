@@ -3,15 +3,25 @@
     padding: 0;
     outline: 0;
     border: 0;
-    font-family: 'Ubuntu';
+    font-family: 'Cascadia Code';
+    font-weight: 500;
 }
 
-#root {
-    margin-top: 100px;
+.navbar {
+    padding: 10px;
+    background-color: #17343b;
+    color: white;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
 }
 
 body {
     margin: 0;
+    min-height: 100vh;
+    background-color: #101d21;
 }
 
 .btn {
@@ -22,8 +32,10 @@ body {
 }
 
 .btn-primary {
+    border: 1px solid #002f94;
     background: linear-gradient(#9da4fd, #0046dd);
     color: whitesmoke;
+    width: 100%;    
 }
 
 .btn-primary:hover {
@@ -32,8 +44,10 @@ body {
 }
 
 .btn-success {
+    border: 1px solid #01d328;
     background: linear-gradient(#9dfda2, #00dd21);
-    color: whitesmoke;
+    color: #006307;
+    width: 100%;
 }
 
 .btn-success:hover {
@@ -42,17 +56,14 @@ body {
 }
 
 .btn-danger {
+    border: 1px solid #cf0000;
     background: linear-gradient(  #fd9d9d, #dd0000);
-    color: whitesmoke;
+    width: 100%;
+    color: #3e0000;
 }
 
 .btn-danger:hover {
     
     background: linear-gradient( #dd0000, #fd9d9d);
     color: whitesmoke;
-}
-
-.task-list {
-    margin-right: 100px;
-    margin-left: 100px;
 }
