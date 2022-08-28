@@ -1,0 +1,33 @@
+@media screen and (max-width: 750px) {
+    .todo-form {
+        flex-direction: column;
+    }
+
+    .input-text {
+        margin: 7px 0px 7px 0px !important;
+    }
+}
+
+.todo-form {
+    color: whitesmoke;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 10% 0px 10%;
+}
+
+.input-text {
+    border-radius: 6px;
+    font-size: 13pt;
+    margin: 0px 10px 0px 10px;
+    border-bottom: #3777ff solid .5px;
+    background-color: #efefef;
+    transition: border-bottom .07s ease-in-out;
+    padding: 5px 10px 5px 10px;
+    width: 100%;
+}
+
+
+.input-text:focus {
+    border-bottom: #3777ff solid 5px
+}
